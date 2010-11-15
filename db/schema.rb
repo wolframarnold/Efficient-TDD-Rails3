@@ -10,7 +10,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101109021012) do
+ActiveRecord::Schema.define(:version => 20101115070248) do
+
+  create_table "shipping_addresses", :force => true do |t|
+    t.string   "street"
+    t.string   "city"
+    t.string   "zip"
+    t.string   "state"
+    t.string   "country"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "shipping_addresses", ["user_id"], :name => "index_shipping_addresses_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "first_name"

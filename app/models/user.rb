@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
 
+  has_many :shipping_addresses, :autosave => true, :inverse_of => :user
+
   # Rails 2.3
   # validates_presence_of :first_name
 
