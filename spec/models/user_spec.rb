@@ -54,7 +54,6 @@ describe User do
       subject.attributes = {:first_name => "Joe", :last_name => "Smith"}
       subject.shipping_addresses.build(:street => "123 Main St", :city => "San Francisco", :state => "CA", :zip => "94321")
       subject.valid?
-      p subject.errors.full_messages
       subject.should be_valid
     end
 

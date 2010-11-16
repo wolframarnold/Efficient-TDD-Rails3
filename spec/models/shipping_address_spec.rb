@@ -28,7 +28,6 @@ describe ShippingAddress do
 
     it 'is set to "US" if left blank' do
       subject.country.should be_blank
-      p subject
       subject.save!
       subject.country.should == 'US'
     end
@@ -43,10 +42,10 @@ describe ShippingAddress do
 
   context "Scopes" do
     before do
-      u = User.create(:first_name => 'Joe', :last_name => 'Smith')
-      @ca = u.shipping_addresses.create!(:street => "123 Main St", :city => "San Francisco", :state => "CA", :zip => "94321", :created_at => 1.year.ago)
-      @ca_recent = u.shipping_addresses.create!(:street => "456 Broadway", :city => "Oakland", :state => "CA", :zip => "94321", :created_at => 1.month.ago)
-      @ny_recent = u.shipping_addresses.create!(:street => "876 1st Street", :city => "New York", :state => "NY", :zip => "94321", :created_at => 1.week.ago)
+      ShippingAddress.delete_all
+      @ca = Factory(:shipping_address, :created_at => 1.year.ago)
+      @ca_recent = Factory(:shipping_address, :created_at => 1.month.ago)
+      @ny_recent = Factory(:shipping_address, :state => "NY", :created_at => 1.week.ago)
     end
 
     it 'retrieves addresses in California' do
@@ -59,6 +58,15 @@ describe ShippingAddress do
 
     it 'finds recent addresses in California' do
       ShippingAddress.new_in_california.all.should == [@ca_recent]
+    end
+
+    it 'uses current time to determine recency' do
+      ShippingAddress.delete_all
+      apr1 = DateTime.civil(2010,4,1).to_time
+      Time.stub(:now).and_return(apr1)
+      @ca_jan1 = Factory(:shipping_address, :created_at => DateTime.civil(2010,1,1))
+      @ca_mar1 = Factory(:shipping_address, :created_at => DateTime.civil(2010,3,1))
+      ShippingAddress.in_last_3_months.all.should == [@ca_mar1]
     end
   end
 
