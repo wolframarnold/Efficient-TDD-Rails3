@@ -59,4 +59,23 @@ describe User do
     end
 
   end
+
+  describe "Custom Finders" do
+
+    before do
+      User.delete_all
+      @anna = Factory(:user, :first_name => "Anna",  :last_name => "Jones")
+      @peter= Factory(:user, :first_name => "Peter", :last_name => "Miller")
+      @jona = Factory(:user, :first_name => "Jona",  :last_name => "Smith")
+    end
+
+    it 'has a method find_by_beginning_of_name' do
+      User.should respond_to(:by_names_starting_with)
+    end
+
+    it 'finds all records whose first or last name starts with the given letters' do
+      User.by_names_starting_with("Jon").all.should == [@anna, @jona]
+    end
+
+  end
 end

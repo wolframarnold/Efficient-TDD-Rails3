@@ -9,6 +9,10 @@ class User < ActiveRecord::Base
   validates :first_name, :presence => true
   validates :last_name, :presence => true
 
+  scope :by_names_starting_with, lambda {|term|
+    where("first_name LIKE :term OR last_name LIKE :term", { :term => "#{term}%" })
+  }
+
   def full_name
     name = first_name
     name << (' ' + middle_name) unless middle_name.blank?
