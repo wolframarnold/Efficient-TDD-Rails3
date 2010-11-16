@@ -11,6 +11,10 @@ class ShippingAddress < ActiveRecord::Base
 
   before_validation :default_country
 
+  scope :in_california, where(:state => 'CA')
+  scope :in_last_3_months, where("created_at > ?", 3.months.ago)
+  scope :new_in_california, in_california.in_last_3_months
+
   private
 
   def default_country
