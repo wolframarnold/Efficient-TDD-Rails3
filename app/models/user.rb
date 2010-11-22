@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
 
   has_many :shipping_addresses, :autosave => true, :inverse_of => :user
+  has_many :orders
+  has_many :line_items, :through => :orders
 
   # Rails 2.3
   # validates_presence_of :first_name
@@ -12,6 +14,10 @@ class User < ActiveRecord::Base
   scope :by_names_starting_with, lambda {|term|
     where("first_name LIKE :term OR last_name LIKE :term", { :term => "#{term}%" })
   }
+
+  def items
+    Item.joins(:line_items => {:order => :user}).group('items.id').all
+  end
 
   def full_name
     name = first_name
