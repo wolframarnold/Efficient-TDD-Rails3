@@ -15,6 +15,9 @@ class User < ActiveRecord::Base
     where("first_name LIKE :term OR last_name LIKE :term", { :term => "#{term}%" })
   }
 
+  scope :loyal_last_90_days, lambda { joins(:orders).where('orders.created_at >= ?', 90.days.ago) }
+  scope :min_2_items, joins(:orders => :line_items).group('users.id').having('COUNT(line_items.id) >= 2')
+
   def items
     Item.joins(:line_items => {:order => :user}).group('items.id').all
   end

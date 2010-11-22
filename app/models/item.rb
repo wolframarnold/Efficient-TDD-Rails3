@@ -5,4 +5,6 @@ class Item < ActiveRecord::Base
 
   has_many :line_items
 
+  scope :by_popularity, joins(:line_items).group('line_items.item_id').order('COUNT(line_items.item_id) DESC')
+
 end
