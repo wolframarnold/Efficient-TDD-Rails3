@@ -1,0 +1,10 @@
+<h1>Products</h1>
+<ul>
+    <% @products.each do |product| %>
+      <li>
+        <% img_url = Nokogiri::XML.parse(product.summary).css("img").first.attribute("src").value %>
+        <%= link_to image_tag(img_url), product.url %>
+        <%= link_to product.title, product.url %>
+      </li>
+    <% end %>
+</ul>
