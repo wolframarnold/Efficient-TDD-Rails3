@@ -46,7 +46,6 @@ describe User do
       subject.save!
       lambda {
         addr = subject.shipping_addresses.create(:street => "123 Main St", :city => "San Francisco", :state => "CA", :zip => "94321")
-        p addr.errors.full_messages
       }.should change(ShippingAddress,:count).by(1)
     end
 
