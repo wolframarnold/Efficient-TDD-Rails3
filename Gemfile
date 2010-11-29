@@ -7,7 +7,7 @@ gem 'rails', '3.0.3'
 
 gem 'sqlite3-ruby', :require => 'sqlite3'
 
-gem 'feedzirra'
+gem 'simple-rss'
 # Use unicorn as the web server
 # gem 'unicorn'
 
@@ -33,6 +33,7 @@ end
 group :test do
   gem 'factory_girl'
   gem 'webrat'
+  gem 'fakeweb'
 end
 
 group :development do

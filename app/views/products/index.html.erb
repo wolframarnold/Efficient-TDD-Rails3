@@ -2,9 +2,8 @@
 <ul>
     <% @products.each do |product| %>
       <li>
-        <% img_url = Nokogiri::XML.parse(product.summary).css("img").first.attribute("src").value %>
-        <%= link_to image_tag(img_url), product.url %>
-        <%= link_to product.title, product.url %>
+        <%= link_to image_tag(product.image_url), product.link %>
+        <%= link_to product.title, product.link %>
       </li>
     <% end %>
 </ul>
