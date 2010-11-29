@@ -7,7 +7,7 @@ describe UsersController do
 
   shared_examples_for "finding user" do
     it "assigns user" do
-      assigns[:user].should == user
+      assigns(:user).should == user
     end
   end
 
@@ -50,7 +50,7 @@ describe UsersController do
 
       it "redirects to the created user" do
         post :create, :user => {:first_name => "Joe", :last_name => "Smith"}
-        response.should redirect_to(user_url(assigns[:user].id))
+        response.should redirect_to(user_url(assigns(:user).id))
       end
     end
 
@@ -59,8 +59,8 @@ describe UsersController do
         lambda {
           post :create, :user => {}
         }.should_not change(User,:count)
-        assigns[:user].should_not be_nil
-        assigns[:user].should be_kind_of(User)
+        assigns(:user).should_not be_nil
+        assigns(:user).should be_kind_of(User)
       end
 
       it "re-renders the 'new' template" do
