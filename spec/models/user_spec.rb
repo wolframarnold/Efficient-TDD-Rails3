@@ -56,6 +56,24 @@ describe User do
       subject.should be_valid
     end
 
+    context "nested attributes" do
+      subject { Factory(:user) }
+
+      it 'can be updated via nested attributes' do
+        lambda {
+          subject.attributes = {:shipping_addresses_attributes => [Factory.attributes_for(:shipping_address)]}
+          subject.save!
+        }.should change {subject.shipping_addresses.count}.by(1)
+      end
+
+      it "won't add a shipping address if all fields are blank" do
+        lambda {
+          subject.attributes = {:shipping_addresses_attributes => [:street => '', :city => '', :state => '', :zip =>'']}
+          subject.save!
+        }.should_not change {subject.shipping_addresses.count}
+      end
+    end
+
   end
 
   describe "Custom Finders" do

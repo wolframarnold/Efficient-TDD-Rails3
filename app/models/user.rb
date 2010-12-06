@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   validates :first_name, :presence => true
   validates :last_name, :presence => true
 
+  accepts_nested_attributes_for :shipping_addresses, :reject_if => :all_blank
+
   scope :by_names_starting_with, lambda {|term|
     where("first_name LIKE :term OR last_name LIKE :term", { :term => "#{term}%" })
   }
