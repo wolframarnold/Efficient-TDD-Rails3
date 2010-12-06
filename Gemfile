@@ -29,12 +29,17 @@ gem 'simple-rss'
 # and rake tasks are available in development mode:
 group :development, :test do
   gem 'rspec-rails', "~> 2.1.0"
+  gem 'cucumber-rails', "~> 0.3"
+#  gem 'webrat', "~> 0.7"
+  # Webrat from forked repo, to fix redirect bug: http://goo.gl/fCH5G
+  # run bundle install to pull this version and install
+  gem 'webrat', '>=0.7.2.beta.6', :git => 'git://github.com/orangewise/webrat'
 end
 
 group :test do
   gem 'factory_girl'
-  gem 'webrat'
-  gem 'fakeweb'
+  gem 'fakeweb', '~> 1.3'
+  gem 'launchy' # for opening error pages from webrat & capybara in a browser
 end
 
 group :development do

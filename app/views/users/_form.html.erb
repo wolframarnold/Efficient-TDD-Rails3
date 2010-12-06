@@ -17,6 +17,26 @@
   <%= f.label :last_name %>
   <%= f.text_field :last_name %>
   <br />
+    <%= f.fields_for :shipping_addresses do |addr_form| %>
+        <%= addr_form.label :street %>
+        <%= addr_form.text_field :street %>
+        <br />
+        <%= addr_form.label :city %>
+        <%= addr_form.text_field :city %>
+        <br />
+        <%= addr_form.label :zip %>
+        <%= addr_form.text_field :zip %>
+        <br />
+        <%= addr_form.label :state %>
+        <%= addr_form.text_field :state %>
+        <br />
+
+    <% end %>
+    <p>
+      Shipping Address:
+      <br />
+
+    </p>
 
   <div class="actions">
     <%= f.submit %>

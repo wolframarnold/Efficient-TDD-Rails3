@@ -7,5 +7,14 @@
     Last Name: <%= @user.last_name %>
 </p>
 
+<p>Shipping Address:</p>
+<p>
+  <% @user.shipping_addresses.each do |addr| %>
+  <%= addr.street %><br />
+  <%= addr.city %>, <%= addr.state %> <%= addr.zip %>
+  <% end %>
+</p>
+
+
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
