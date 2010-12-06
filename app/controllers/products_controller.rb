@@ -1,7 +1,11 @@
 class ProductsController < ApplicationController
 
   def index
-    @products = Product.fetch
+    if params[:tag].present?
+      @products = Product.fetch(params[:tag])
+    else
+      head 404
+    end
   end
 
 end

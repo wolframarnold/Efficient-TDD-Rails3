@@ -1,6 +1,8 @@
 class Product
   require 'open-uri'
 
+  BaseURL = "http://www.amazon.com/rss/tag/"
+
   attr_reader :title, :link, :description
 
   def initialize(feed_item)
@@ -9,8 +11,8 @@ class Product
     @description = feed_item.description
   end
 
-  def self.fetch
-    SimpleRSS.parse(open("http://www.amazon.com/rss/tag/running/popular?length=5")).items.map {|i| Product.new(i) }
+  def self.fetch(tag='running')
+    SimpleRSS.parse(open(BaseURL+tag+'/popular?length=5')).items.map {|i| Product.new(i) }
   end
 
   def image_url
