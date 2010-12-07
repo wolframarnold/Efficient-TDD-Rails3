@@ -21,8 +21,14 @@ Webrat.configure do |config|
   config.open_error_files = true # Set to true if you want error pages to pop up in the browser
 end
 
+# Need this to be able to stub Time.now
+require 'rspec/mocks'
+Cucumber::Rails::World.class_eval do
+  include RSpec::Mocks
+  RSpec::Mocks.setup(self)
+end
 
-# If you set this to false, any error raised from within your app will bubble 
+# If you set this to false, any error raised from within your app will bubble
 # up to your step definition and out to cucumber unless you catch it somewhere
 # on the way. You can make Rails rescue errors and render error pages on a
 # per-scenario basis by tagging a scenario or feature with the @allow-rescue tag.
@@ -55,3 +61,4 @@ if defined?(ActiveRecord::Base)
   rescue LoadError => ignore_if_database_cleaner_not_present
   end
 end
+
