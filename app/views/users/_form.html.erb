@@ -18,27 +18,28 @@
   <%= f.text_field :last_name %>
   <br />
     <%= f.fields_for :shipping_addresses do |addr_form| %>
-        <%= addr_form.label :street %>
-        <%= addr_form.text_field :street %>
-        <br />
-        <%= addr_form.label :city %>
-        <%= addr_form.text_field :city %>
-        <br />
-        <%= addr_form.label :zip %>
-        <%= addr_form.text_field :zip %>
-        <br />
-        <%= addr_form.label :state %>
-        <%= addr_form.text_field :state %>
-        <br />
-
+        <div class="address">
+            <%= link_to "Delete", '#', :class => 'delete_link' %>
+            <%= addr_form.hidden_field :_destroy %>
+            <%= addr_form.label :street %>
+            <%= addr_form.text_field :street %>
+            <br />
+            <%= addr_form.label :city %>
+            <%= addr_form.text_field :city %>
+            <br />
+            <%= addr_form.label :zip %>
+            <%= addr_form.text_field :zip %>
+            <br />
+            <%= addr_form.label :state %>
+            <%= addr_form.text_field :state %>
+            <br />
+        </div>
     <% end %>
-    <p>
-      Shipping Address:
-      <br />
-
-    </p>
+    <%= link_to "Add one", '#', :class => 'add_one_link' %>
 
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+
+<%= javascript_include_tag 'jquery-1.4.2.min', 'user_form' %>

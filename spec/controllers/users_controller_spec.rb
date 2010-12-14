@@ -30,6 +30,10 @@ describe UsersController do
       get :new
       assigns(:user).should_not be_nil
     end
+    it 'assigns a new shipping address' do
+      get :new
+      assigns[:user].should have(1).shipping_addresses
+    end
   end
 
   describe "GET edit" do
@@ -68,7 +72,6 @@ describe UsersController do
         response.should render_template("new")
       end
     end
-
   end
 
   describe "PUT update" do
