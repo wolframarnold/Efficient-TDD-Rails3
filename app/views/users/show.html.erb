@@ -8,12 +8,12 @@
 </p>
 
 <p>Shipping Address:</p>
-<p>
   <% @user.shipping_addresses.each do |addr| %>
-  <%= addr.street %><br />
-  <%= addr.city %>, <%= addr.state %> <%= addr.zip %>
-  <% end %>
-</p>
+    <p>
+      <%= addr.street %><br />
+      <%= addr.city %>, <%= addr.state %> <%= addr.zip %>
+    </p>
+<% end %>
 
 
 <%= link_to 'Edit', edit_user_path(@user) %> |

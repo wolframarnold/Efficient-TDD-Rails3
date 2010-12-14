@@ -72,6 +72,15 @@ describe User do
           subject.save!
         }.should_not change {subject.shipping_addresses.count}
       end
+
+      it 'can delete an address via nested attributes and _destroy flag' do
+        addr = subject.shipping_addresses.create(Factory.attributes_for(:shipping_address))
+        lambda {
+          subject.attributes = {:shipping_addresses_attributes => [{:id => addr.id, :_destroy => 1}]}
+          subject.save!
+        }.should change{subject.shipping_addresses.count}.by(-1)  # addresses(true) causes a reload
+      end
+
     end
 
   end
