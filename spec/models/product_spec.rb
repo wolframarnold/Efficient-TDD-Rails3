@@ -3,17 +3,21 @@ require 'spec_helper'
 describe Product do
   before :all do
     FakeWeb.allow_net_connect = false
-    FakeWeb.register_uri(:get, Product::BaseURL + 'running' + "/popular?length=5", :body => File.open(File.join(Rails.root,'spec','fixtures','products_rss.xml')).read)
+    @rss_fixture = File.open(File.join(Rails.root,'spec','fixtures','products_rss.xml')).read 
+    FakeWeb.register_uri(:get, Product::BaseURL + 'running' + "/popular?length=5", :body => @rss_fixture)
   end
 
   context '#fetch' do
+    before :all do
+      FakeWeb.register_uri(:get, Product::BaseURL + 'swimming' + "/popular?length=5", :body => @rss_fixture)
+    end
+
     it 'retrieves RSS feed' do
       lambda {
         Product.fetch
       }.should_not raise_error
     end
     it 'returns an array of products for given tag' do
-      FakeWeb.register_uri(:get, Product::BaseURL + 'swimming' + "/popular?length=5", :body => File.open(File.join(Rails.root,'spec','fixtures','products_rss.xml')).read)
       prods = Product.fetch("swimming")
       prods.should be_kind_of(Array)
       prods.each do |p|
