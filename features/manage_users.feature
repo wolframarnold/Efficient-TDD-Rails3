@@ -3,13 +3,13 @@ Feature: Manage users
   a user
   wants to add a new record
   
-  Scenario: Register new user
-    Given I am on the new user page
-    When I fill in "First name" with "Joe"
-    And I fill in "Last name" with "Smith"
-    And I press "Create"
-    Then I should see "Joe"
-    And I should see "Smith"
+#  Scenario: Register new user
+#    Given I am on the new user page
+#    When I fill in "First name" with "Joe"
+#    And I fill in "Last name" with "Smith"
+#    And I press "Create"
+#    Then I should see "Joe"
+#    And I should see "Smith"
 
   Scenario: Register new user with Shipping Address
     Given I am on the new user page
